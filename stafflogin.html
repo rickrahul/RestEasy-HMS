@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rest Easy - Luxury Hotel Experience</title>
+    <link rel="icon" href="./RESTEASY (1).png" type="image/x-icon" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(to right, #e9ebee, #f5f7fa);
+        }
+
+        header {
+            background: rgba(77, 124, 151, 0.95);
+            padding: 1rem 5%;
+            position: relative;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        header nav ul {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+            margin-right: 2rem;
+        }
+
+        nav a {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            color: #ffffff;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s, transform 0.3s ease;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            color: #2095c4;
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .Wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Center horizontally */
+            justify-content: center;
+            /* Center vertically */
+            width: 90%;
+            /* Set a width */
+            max-width: 400px;
+            /* Optional: Limit the maximum width */
+            margin: 100px auto;
+            /* Center the Wrapper and add top margin */
+            padding: 30px;
+            /* Add some padding */
+            background-color: white;
+            /* Background color for contrast */
+            border-radius: 1rem;
+            /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(133, 95, 95, 0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #4d4d4d;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: #666;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 0.5rem 1.5rem;
+            background-color: #2095c4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #1a7a9c;
+            transform: scale(1.05);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: rgba(77, 124, 151, 0.95);
+            color: #ffffff;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="./RESTEASY (1).png" alt=""
+                style="width: 40px; height: 40px; margin-right: 10px; vertical-align: middle;">
+            Rest Easy
+        </div>
+        <nav>
+            <ul>
+                <li><a href="./index.html" class="btn">Home</a></li>
+                <li><a href="./features.html" class="btn">Features</a></li>
+                <li><a href="./confirm.html" class="btn">Confirm</a></li>
+                <li><a href="./contactus.html" class="btn">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="Wrapper">
+        <h1>Staff Attendence</h1>
+        <p>Please enter your Staff I'd for Staff Attendence.</p>
+        <input type="text" placeholder="Enter Staff I'd" name="Username" id="input" required>
+        <!-- Replace the button and anchor combination with just the button -->
+        <button class="btn" onclick="verifyStaffId()">Search</button>
+
+    </div>
+    <footer>
+        <p>&copy; 2024 Rest Easy. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function verifyStaffId() {
+            const staffId = document.getElementById('input').value;
+            if (!staffId) {
+                alert('Please enter Staff ID');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/staff/verify', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ staffId })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    // Store staffId in sessionStorage for use in attendance page
+                    sessionStorage.setItem('staffId', staffId);
+                    window.location.href = './staffattendance.html';
+                } else {
+                    alert('Invalid Staff ID');
+                }
+            } catch (error) {
+                alert('Error verifying Staff ID');
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>

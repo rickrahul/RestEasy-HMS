@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rest Easy - Luxury Hotel Experience</title>
+    <link rel="icon" href="./RESTEASY (1).png" type="image/x-icon" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: rgba(178, 185, 189, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #c8a97e;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1470&auto=format&fit=crop') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background: #c8a97e;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #b69468;
+            transform: scale(1.05);
+        }
+
+        .features {
+            padding: 5rem 10%;
+            background: #f9f9f9;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .feature-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing {
+            padding: 5rem 10%;
+            background: white;
+        }
+
+        .pricing h2 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .pricing-plan {
+            background: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .pricing-plan:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-plan img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .pricing-plan h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #333;
+            padding: 1rem 0;
+        }
+
+        .pricing-plan p {
+            font-size: 1.2rem;
+            padding-bottom: 1.5rem;
+            color: #666;
+        }
+
+        @media (min-width: 768px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .book-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background-color: #c8a97e;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s ease;
+        }
+
+        .book-btn:hover {
+            background-color: #b69468;
+            transform: scale(1.05);
+        }
+
+        .feedback {
+            padding: 5rem 10%;
+            background: #f9f9f9;
+            text-align: center;
+        }
+
+        .feedback h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .feedback-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        .feedback-card {
+            background: linear-gradient(135deg, #f7e4c8, #c8a97e);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            color: #333;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feedback-card:hover {
+            transform: scale(1.05) rotate(-1deg);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .feedback-card p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .feedback-card h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #444;
+        }
+
+        @media (min-width: 768px) {
+            .feedback-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="./RESTEASY (1).png" alt=""
+                style="width: 40px; height: 40px; margin-right: 10px; vertical-align: middle;">
+            Rest Easy
+        </div>
+        <nav>
+            <ul>
+                <li><a href="./index.html" class="btn">Home</a></li>
+                <li><a href="./features.html" class="btn">Features</a></li>
+                <li><a href="./aboutus.html" class="btn">About Us</a></li>
+                <li><a href="./contactus.html" class="btn">Contact Us</a></li>
+                <li><a href="./signup.html" class="btn">Sign up/Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1><span id="typing-element"></span></h1>
+        <p>Stay Once, Carry Memories Forever</p>
+        <a href="#" class="btn" onclick="playVideo()">Explore Our Rooms</a>
+    </section>
+
+    <div id="videoModal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1001;">
+        <div style="position: relative; width: 80%; height: 80%; margin: 5% auto;">
+            <span onclick="closeVideo()"
+                style="position: absolute; right: 15px; top: -40px; color: white; font-size: 30px; cursor: pointer;">&times;</span>
+            <video id="hotelVideo" width="100%" height="100%" controls>
+                <source src="./hotel-tour.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <section id="features" class="features">
+        <h2>Why Choose Rest Easy?</h2>
+        <div class="feature-box">
+            <i class="fas fa-concierge-bell fa-2x" style="color: #c8a97e; margin-bottom: 1rem;"></i>
+            <h3>Exceptional Service</h3>
+            <p>Experience unparalleled hospitality with our dedicated staff.</p>
+        </div>
+        <div class="feature-box">
+            <i class="fas fa-spa fa-2x" style="color: #c8a97e; margin-bottom: 1rem;"></i>
+            <h3>Luxury Amenities</h3>
+            <p>Indulge in our world-class spa, fitness center, and gourmet restaurants.</p>
+        </div>
+        <div class="feature-box">
+            <i class="fas fa-users fa-2x" style="color: #c8a97e; margin-bottom: 1rem;"></i>
+            <h3>Guest-Centric Approach</h3>
+            <p>Your comfort and satisfaction are our top priorities.</p>
+        </div>
+    </section>
+
+    <section id="pricing" class="pricing">
+        <h2>Our Pricing Plans</h2>
+        <div class="pricing-grid">
+            <div class="pricing-plan">
+                <img src="https://www.apexhotels.co.uk/media/pqdfy0bc/acb-rm-superior-double-bedroom-dsc03564.jpg?anchor=center&mode=crop&width=1000&height=500&rnd=132405993670830000"
+                    alt="">
+                <h3>Superior Room</h3>
+                <h4>Details</h4>
+                <p>Starting at Rs. 19900 per night</p>
+                <a href="./signup.html" class="book-btn">Book Now</a>
+            </div>
+            <div class="pricing-plan">
+                <img src="https://www.thelalit.com/wp-content/uploads/2017/05/Deluxe-Room-Kolkata-1-768x575.jpg" alt="">
+                <h3>Deluxe Suite</h3>
+                <h4>Details</h4>
+                <p>Starting at Rs. 29000 per night</p>
+                <a href="./signup.html" class="book-btn">Book Now</a>
+            </div>
+            <div class="pricing-plan">
+                <img src="https://media.hotel7dublin.com/image/upload/f_auto,g_auto,c_auto,w_3840,q_auto/v1708595213/Uploads/Hotel7/Cosy_Room_Hero_643fdf08b9.jpg"
+                    alt="">
+                <h3>Double Room</h3>
+                <h4>Details</h4>
+                <p>Starting at Rs. 39900 per night</p>
+                <a href="./signup.html" class="book-btn">Book Now</a>
+            </div>
+            <div class="pricing-plan">
+                <img src="https://i0.wp.com/vuniversity.in/wp-content/uploads/2023/10/Types-of-room-single.png?fit=600%2C375&ssl=1"
+                    alt="">
+                <h3>Single Room</h3>
+                <h4>Details</h4>
+                <p>Starting at Rs. 9900 per night</p>
+                <a href="./signup.html" class="book-btn">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="feedback" class="feedback">
+        <h2>What Our Guests Say</h2>
+        <div class="feedback-grid">
+            <div class="feedback-card">
+                <p>"The best hotel experience I've ever had! The rooms were luxurious, and the service was impeccable.
+                    Will definitely come back!"</p>
+                <h4>— Emily R.</h4>
+            </div>
+            <div class="feedback-card">
+                <p>"A truly wonderful stay! The amenities were top-notch, and the staff made us feel like VIPs. Highly
+                    recommended!"</p>
+                <h4>— Michael T.</h4>
+            </div>
+            <div class="feedback-card">
+                <p>"From check-in to check-out, everything was flawless. The spa and dining options were a fantastic
+                    treat. 5 stars!"</p>
+                <h4>— Sarah K.</h4>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Rest Easy. All Rights Reserved.</p>
+        <ul>
+            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+    </footer>
+
+    <!-- Include Typed.js Library -->
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <!-- Initialize Typed.js for Typing Animation -->
+    <script>
+        var typed = new Typed('#typing-element', {
+            strings: ['Welcome to Heaven on Earth'],
+            typeSpeed: 50,
+            backSpeed: 25,
+            loop: false
+        });
+    </script>
+
+    <script>
+        function playVideo() {
+            document.getElementById('videoModal').style.display = 'block';
+            document.getElementById('hotelVideo').play();
+        }
+
+        function closeVideo() {
+            document.getElementById('videoModal').style.display = 'none';
+            document.getElementById('hotelVideo').pause();
+            document.getElementById('hotelVideo').currentTime = 0;
+        }
+    </script>
+
+</body>
+
+</html>

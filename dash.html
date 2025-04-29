@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management System - Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .header {
+            background-color: #4B0082;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #8A2BE2;
+            color: white;
+            padding: 1rem;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar li {
+            margin-bottom: 1rem;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem;
+        }
+        .dashboard-card {
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Hotel Management System - Admin Dashboard</h1>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="./dash.html">Dashboard</a></li>
+                <li><a href="#">Reservations</a></li>
+                <li><a href="#">Rooms</a></li>
+                <li><a href="#">Guests</a></li>
+                <li><a href="#">Staff</a></li>
+                <li><a href="#">Reports</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h2>Welcome, Admin</h2>
+            <div class="dashboard-card">
+                <h3>Current Occupancy</h3>
+                <p>75% (60/80 rooms occupied)</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Today's Check-ins</h3>
+                <p>15 guests</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Today's Check-outs</h3>
+                <p>12 guests</p>
+            </div>
+            <div class="dashboard-card">
+                <h3>Revenue (Last 7 days)</h3>
+                <p>Rs 25,450</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="./RESTEASY (1).png" type="image/x-icon" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        a {
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #800080, #4B0082);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('./img.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            color: white;
+            width: 300px;
+            max-width: 100%;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #9400D3;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #8A2BE2;
+        }
+
+        .checkbox-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .forgot-password,
+        .register-link {
+            color: #E6E6FA;
+            text-decoration: none;
+        }
+
+        .admin-login-btn {
+            background-color: #4B0082;
+            margin-top: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #4B0082;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            color: white;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #E6E6FA;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .image-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .staff-btn {
+            background-color: #6A5ACD;
+        }
+
+        .staff-btn:hover {
+            background-color: #483D88;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <div class="checkbox-container">
+                <input type="checkbox" id="rememberMe">
+                <label for="rememberMe">Remember me</label>
+                <a href="./findaccount.html" class="forgot-password">Forgot Password?</a>
+            </div>
+            <button type="submit"><a href="./dashboard.html">Admin Login</a></button>
+        </form>
+        <!-- Standalone staff login button -->
+        <a href="./stafflogin.html">
+            <button class="staff-btn">Staff Login</button>
+        </a>
+        <!-- Add this after the staff login button -->
+        <a href="./receptionist-login.html">
+            <button class="staff-btn">Receptionist Login</button>
+        </a>
+        <p>Don't have an account? <a href="./register.html" class="register-link">Register</a></p>
+
+    </div>
+
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <input type="text" id="adminUsername" placeholder="Admin Username" required>
+                <input type="password" id="adminPassword" placeholder="Admin Password" required>
+                <button type="submit" style="font-weight: bold;
+                color: black;">Login as Admin</button>
+                <button type="button" class="staff-btn" id="staffButton">Staff Login</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginButton = document.getElementById('loginButton');
+            const staffButton = document.getElementById('staffButton');
+
+            // Redirect to the admin dashboard on Admin Login button click
+            loginButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (username && password) {
+                    window.location.href = "dashboard.html";  // Redirect to admin dashboard
+                } else {
+                    alert("Please enter both username and password.");
+                }
+            });
+
+            // Redirect to the staff page on Staff button click
+            staffButton.addEventListener('click', () => {
+                window.location.href = "stafflogin.html";  // Redirect to staff page
+            });
+        });
+    </script>
+
+    <script>
+        // Integrated JavaScript code
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('loginForm');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const adminLoginModal = document.getElementById('adminLoginModal');
+            const adminLoginForm = document.getElementById('adminLoginForm');
+            const closeBtn = document.querySelector('.close');
+
+            // Regular user login
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                // For demo purposes, we'll just check if fields are not empty
+                if (username && password) {
+                    alert('Confirm!');
+                    // In a real application, you would redirect to the user dashboard
+                } else {
+                    alert('Please enter both username and password.');
+                }
+            });
+
+            // Show admin login modal
+            adminLoginBtn.onclick = () => {
+                adminLoginModal.style.display = 'block';
+            }
+
+            // Close admin login modal
+            closeBtn.onclick = () => {
+                adminLoginModal.style.display = 'none';
+            }
+
+            // Close modal if clicking outside of it
+            window.onclick = (event) => {
+                if (event.target == adminLoginModal) {
+                    adminLoginModal.style.display = 'none';
+                }
+            }
+
+            // Admin login
+            adminLoginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const adminUsername = document.getElementById('adminUsername').value;
+                const adminPassword = document.getElementById('adminPassword').value;
+
+                // For demo purposes, we'll use a hardcoded admin credentials
+                if (adminUsername === 'admin' && adminPassword === 'adminpass') {
+                    alert('Admin login successful!');
+                    // Redirect to admin dashboard
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert('Invalid admin credentials');
+                }
+            });
+
+            //Redirect to staff page on button click
+            staffButton.addEventListener('click', () => {
+                window.location.href = "stafflogin.html"; //Redirect to staff page
+            });
+        });
+    </script>
+</body>
+
+</html>

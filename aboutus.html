@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <link rel="stylesheet" type="text/css" href="style2.css">
+    <link
+            rel="icon"
+            href=
+"./RESTEASY (1).png"
+            type="image/x-icon"
+        />
+</head>
+<body>
+    <div class="section">
+        <div class="container">
+            <div class="content-section">
+                <div class="title">
+                    <h1 id="typing-text"></h1>
+                </div>
+                <div class="content">
+                    <h3 id="initial-content">Welcome to Rest Easy! We are dedicated to providing our guests with a blend of elegance, 
+                        comfort, and exceptional hospitality. Located in Kolkata, our hotel is an ideal escape from 
+                        the hustle and bustle, offering serene surroundings, top-tier amenities, and outstanding service.</h3>
+
+                    <h2>Our Mission</h2>
+                    <h3>Our mission is to create memorable experiences that bring guests back to Rest Easy time and again. 
+                        We believe in the power of personalized service, high-quality facilities, and attention to every detail to make 
+                        each stay unforgettable.</h3>
+                    <div id="more-content" style="display: none;">
+                        <h2>Our Vision</h2>
+                        <h3>We strive to be a leader in the hospitality industry, known for our innovation, integrity, and commitment to 
+                            delivering the best possible guest experience. By embracing sustainable practices and supporting our community, 
+                            we aim to make a positive impact on both our guests and our environment.</h3>
+
+                        <h2>Our Values</h2>
+                        <h3>Guest-Centered Service: Our guests are our priority, and we aim to exceed their expectations at every touchpoint.
+                            Quality and Excellence: We are committed to offering high-quality services, from room amenities to dining experiences.
+                            Sustainability: We believe in responsible hospitality, integrating sustainable practices into our operations.</h3>
+
+                        <h2>Why Choose Us?</h2>
+                        <h3>At Rest Easy, we go beyond offering a place to stay. We provide an experience that combines comfort, convenience, 
+                            and a touch of luxury. Whether you're here for business or leisure, our staff is here to make your stay seamless and 
+                            enjoyable.</h3>
+                    </div>
+
+                    <div class="button">
+                        <a href="#" id="read-more-btn">Read More</a>
+                    </div>
+                </div>
+                <div class="social">
+                    <a href="https://www.facebook.com/shouvik.dutta.102?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://wa.me/9932643387" target="_blank""><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/i_am_shouvik122?igsh=NnJhZ2dvN3pqN2Rr" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="image-section">
+                <img src="img one.png" alt="image">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for typing effect
+        const initialText = "About Us";
+        const newText = "Rest Easy";
+        const typingText = document.getElementById("typing-text");
+        let index = 0;
+
+        function type() {
+            if (index < initialText.length) {
+                typingText.innerHTML += initialText.charAt(index);
+                index++;
+                setTimeout(type, 200); // Adjust typing speed here (milliseconds)
+            } else {
+                // Pause before deleting "Us"
+                setTimeout(() => {
+                    eraseUs();
+                }, 2000); // Time to wait before erasing "Us"
+            }
+        }
+
+        function eraseUs() {
+            // Erase the "Us" part
+            typingText.innerHTML = initialText.slice(0, 6); // "About "
+            setTimeout(() => {
+                typeRestEasy();
+            }, 500); // Delay before typing "Rest Easy"
+        }
+
+        function typeRestEasy() {
+            let restIndex = 0;
+            typingText.innerHTML += newText.charAt(restIndex);
+            const interval = setInterval(() => {
+                restIndex++;
+                typingText.innerHTML = initialText.slice(0, 6) + newText.slice(0, restIndex); // Update text with "About" and "Rest Easy"
+                if (restIndex >= newText.length) {
+                    clearInterval(interval); // Stop the interval when done
+                }
+            }, 200); // Speed of typing "Rest Easy"
+        }
+
+        type(); // Start typing effect
+
+        // JavaScript for Read More functionality
+        const readMoreBtn = document.getElementById("read-more-btn");
+        const moreContent = document.getElementById("more-content");
+
+        readMoreBtn.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default anchor click behavior
+            if (moreContent.style.display === "none") {
+                moreContent.style.display = "block"; // Show more content
+                readMoreBtn.textContent = "Read Less"; // Change button text to "Read Less"
+            } else {
+                moreContent.style.display = "none"; // Hide more content
+                readMoreBtn.textContent = "Read More"; // Change button text back to "Read More"
+            }
+        });
+    </script>
+</body>
+</html>

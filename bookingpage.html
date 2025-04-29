@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="icon" href="./RESTEASY (1).png" type="image/x-icon" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #1a237e 0%, #0d47a1 100%);
+            color: #ecf0f1;
+            padding: 25px;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            position: auto;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 35px;
+            font-size: 26px;
+            text-align: center;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 12px 20px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .sidebar nav a i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .sidebar nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 35px;
+            background-color: #ffffff;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin: 25px;
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .content-header h1 {
+            font-size: 30px;
+            color: #1a237e;
+            font-weight: 600;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .search-bar {
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 15px;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            border-color: #1a237e;
+            box-shadow: 0 0 8px rgba(26, 35, 126, 0.2);
+            outline: none;
+        }
+
+        .search-btn,
+        .export-btn {
+            background: linear-gradient(45deg, #1a237e, #0d47a1);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-btn:hover,
+        .export-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+        }
+
+        .booking-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .booking-table th,
+        .booking-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .booking-table th {
+            background: linear-gradient(45deg, #1a237e, #0d47a1);
+            color: white;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        .booking-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .booking-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .status-btn,
+        .confirm-btn,
+        .edit-btn,
+        .delete-btn,
+        .print-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-btn {
+            background-color: #ffd700;
+            color: #000;
+        }
+
+        .status-btn.confirmed {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .confirm-btn {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .print-btn {
+            background-color: #2196f3;
+            color: white;
+        }
+
+        .confirm-btn:hover,
+        .edit-btn:hover,
+        .delete-btn:hover,
+        .print-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 500px;
+            max-width: 90%;
+        }
+
+        .modal input,
+        .modal select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .modal button {
+            margin-top: 15px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #1a237e;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .modal button:hover {
+            background-color: #0d47a1;
+        }
+
+        .btn-style {
+            background: linear-gradient(45deg, #1a237e, #0d47a1);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-style:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 35, 126, 0.3);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+
+</head>
+
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <h2><i class="fas fa-hotel"></i> Hotel Admin</h2>
+            <nav>
+                <a href="#" id="roomBookingLink"><i class="fas fa-calendar-check"></i> Room Booking</a>
+                <a href="./rooms2.html"><i class="fas fa-door-open"></i> Rooms</a>
+                <a href="./staff.html"><i class="fas fa-users"></i> Staff</a>
+            </nav>
+        </div>
+
+        <div class="content">
+            <div class="content-header">
+                <h1>Room Booking Management</h1>
+                <div class="header-actions">
+                    <input type="text" id="searchInput" placeholder="Search by ID" class="search-bar">
+                    <button class="search-btn" onclick="searchReservation()">Search</button>
+                    <button class="export-btn" onclick="exportToExcel()"><i class="fas fa-file-excel"></i> Export to
+                        Excel</button>
+                    <a href="./dashboard.html"><button class="btn-style"><i class="fas fa-home"></i> Dashboard</button>
+                    </a>
+                </div>
+            </div>
+
+            <table id="bookingTable" class="booking-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Country</th>
+                        <th>Phone</th>
+                        <th>Room Type</th>
+                        <th>No. of Rooms</th>
+                        <th>Meal</th>
+                        <th>Check-In</th>
+                        <th>Check-Out</th>
+                        <th>Status</th>
+                        <th>Total Bill</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Booking rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h2>Edit Reservation</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <input type="text" id="editName" placeholder="Name" required>
+                <input type="email" id="editEmail" placeholder="Email" required>
+                <input type="text" id="editCountry" placeholder="Country" required>
+                <input type="tel" id="editPhone" placeholder="Phone" required>
+                <select id="editRoomType" required>
+                    <option value="Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Suite">Suite</option>
+                </select>
+                <input type="number" id="editNumRooms" placeholder="Number of Rooms" required>
+                <input type="text" id="editMeal" placeholder="Meal" required>
+                <input type="date" id="editCheckIn" required>
+                <input type="date" id="editCheckOut" required>
+                <button type="submit">Save Changes</button>
+                <button type="button" onclick="closeEditModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        async function loadReservations() {
+            try {
+                const response = await fetch('/api/reservations');
+                const reservations = await response.json();
+                displayReservations(reservations);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        function displayReservations(reservations) {
+            const tableBody = document.getElementById('bookingTable').querySelector('tbody');
+            tableBody.innerHTML = '';
+
+            reservations.forEach(reservation => {
+                const row = document.createElement('tr');
+                // Add data-id attribute to identify the row
+                row.setAttribute('data-id', reservation._id);
+                row.innerHTML = `
+                    <td>${reservation._id}</td>
+                    <td>${reservation.firstName} ${reservation.lastName}</td>
+                    <td>${reservation.email}</td>
+                    <td>${reservation.country}</td>
+                    <td>${reservation.phone}</td>
+                    <td>${reservation.roomType}</td>
+                    <td>${reservation.numRooms}</td>
+                    <td>${reservation.meals.join(', ')}</td>
+                    <td>${new Date(reservation.checkIn).toLocaleDateString()}</td>
+                    <td>${new Date(reservation.checkOut).toLocaleDateString()}</td>
+                    <td><button class="status-btn ${reservation.status === 'Confirmed' ? 'confirmed' : ''}">${reservation.status}</button></td>
+                    <td>Rs. ${(reservation.totalBill * 1000000) + (reservation.totalBill * 1000000 * 0.10) + (reservation.totalBill * 1000000 * 0.18)}/-</td>
+                    <td class="action-buttons">
+                        <button class="confirm-btn" onclick="confirmBooking('${reservation._id}')">Confirm</button>
+                        <button class="edit-btn" onclick="openEditModal('${reservation._id}')">Edit</button>
+                        <button class="delete-btn" onclick="deleteBooking('${reservation._id}')">Delete</button>
+                        <button class="print-btn" onclick="generateInvoice('${reservation._id}')">Print</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function generateInvoice(id) {
+            try {
+                const response = await fetch(`http://localhost:5502/api/reservations/${id}`);
+                const reservation = await response.json();
+
+                // Create new jsPDF instance
+                const doc = new jspdf.jsPDF();
+
+                // Add hotel logo
+                doc.addImage("./RESTEASY (1).png", "PNG", 15, 15, 30, 30);
+
+                // Header
+                doc.setFontSize(20);
+                doc.text("Rest Easy Hotel", 80, 20);
+
+                doc.setFontSize(12);
+                doc.text("Invoice", 15, 40);
+                doc.text(`Date: ${new Date().toLocaleDateString()}`, 150, 40);
+
+                // Customer Details
+                doc.setFontSize(14);
+                doc.text("Customer Details", 15, 60);
+
+                doc.setFontSize(12);
+                const details = [
+                    [`Booking ID: ${reservation._id}`],
+                    [`Name: ${reservation.firstName} ${reservation.lastName}`],
+                    [`Email: ${reservation.email}`],
+                    [`Phone: ${reservation.phone}`],
+                    [`Country: ${reservation.country}`],
+                    [`Room Type: ${reservation.roomType}`],
+                    [`Number of Rooms: ${reservation.numRooms}`],
+                    [`Meal Plan: ${reservation.meals.join(', ')}`],
+                    [`Check-In: ${new Date(reservation.checkIn).toLocaleDateString()}`],
+                    [`Check-Out: ${new Date(reservation.checkOut).toLocaleDateString()}`]
+                ];
+
+                let yPos = 70;
+                details.forEach(detail => {
+                    doc.text(detail[0], 15, yPos);
+                    yPos += 10;
+                });
+
+                // Bill Details
+                doc.setFontSize(14);
+                doc.text("Bill Details", 15, yPos + 10);
+
+                const baseAmount = reservation.totalBill * 1000000;
+                const serviceTax = baseAmount * 0.10;
+                const gst = baseAmount * 0.18;
+                const totalAmount = baseAmount + serviceTax + gst;
+
+                const billDetails = [
+                    [`Base Amount: Rs. ${baseAmount.toFixed(2)}/-`],
+                    [`Service Tax (10%): Rs. ${serviceTax.toFixed(2)}/-`],
+                    [`GST (18%): Rs. ${gst.toFixed(2)}/-`],
+                    [`Total Amount: Rs. ${totalAmount.toFixed(2)}/-`]
+                ];
+
+                yPos += 20;
+                billDetails.forEach(detail => {
+                    doc.text(detail[0], 15, yPos);
+                    yPos += 10;
+                });
+
+                // Footer
+                doc.setFontSize(10);
+                doc.text("Thank you for choosing Rest Easy Hotel!", 15, yPos + 20);
+
+                // Save PDF
+                doc.save(`Invoice_${reservation._id}.pdf`);
+
+            } catch (error) {
+                console.error('Error generating invoice:', error);
+                alert('Failed to generate invoice. Please try again.');
+            }
+        }
+
+
+        async function confirmBooking(id) {
+            try {
+                const response = await fetch(`/api/reservations/${id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ status: 'Confirmed' })
+                });
+                if (response.ok) {
+                    // Redirect to confirm.html with the reservation ID
+                    window.location.href = `/confirm.html?id=${id}`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+
+        async function openEditModal(id) {
+            try {
+                const response = await fetch(`/api/reservations/${id}`);
+                const reservation = await response.json();
+
+                // Split the name into firstName and lastName
+                const [firstName, lastName] = reservation.firstName.split(' ');
+
+                document.getElementById('editId').value = reservation._id;
+                document.getElementById('editName').value = `${firstName} ${lastName || ''}`.trim();
+                document.getElementById('editEmail').value = reservation.email;
+                document.getElementById('editCountry').value = reservation.country;
+                document.getElementById('editPhone').value = reservation.phone;
+                document.getElementById('editRoomType').value = reservation.roomType;
+                document.getElementById('editNumRooms').value = reservation.numRooms;
+                document.getElementById('editMeal').value = reservation.meals.join(', ');
+                document.getElementById('editCheckIn').value = new Date(reservation.checkIn).toISOString().split('T')[0];
+                document.getElementById('editCheckOut').value = new Date(reservation.checkOut).toISOString().split('T')[0];
+
+                document.getElementById('editModal').style.display = 'flex';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to load reservation details');
+            }
+        }
+
+        document.getElementById('editForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const id = document.getElementById('editId').value;
+            const [firstName, lastName] = document.getElementById('editName').value.split(' ');
+
+            const updatedData = {
+                firstName: firstName,
+                lastName: lastName || '',
+                email: document.getElementById('editEmail').value,
+                country: document.getElementById('editCountry').value,
+                phone: document.getElementById('editPhone').value,
+                roomType: document.getElementById('editRoomType').value,
+                numRooms: parseInt(document.getElementById('editNumRooms').value),
+                meals: document.getElementById('editMeal').value.split(', '),
+                checkIn: document.getElementById('editCheckIn').value,
+                checkOut: document.getElementById('editCheckOut').value
+            };
+
+            try {
+                const response = await fetch(`/api/reservations/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(updatedData)
+                });
+
+                if (response.ok) {
+                    closeEditModal();
+                    await loadReservations(); // Refresh the table
+                    alert('Reservation updated successfully!');
+                } else {
+                    throw new Error('Failed to update reservation');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to update reservation');
+            }
+        });
+
+        async function deleteBooking(id) {
+            if (confirm('Are you sure you want to delete this booking?')) {
+                try {
+                    const response = await fetch(`http://localhost:5502/api/reservations/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+
+                    if (response.ok) {
+                        // Remove the row from UI immediately
+                        const row = document.querySelector(`tr[data-id="${id}"]`);
+                        if (row) {
+                            row.remove();
+                        }
+                        // Refresh the table to ensure sync with database
+                        await loadReservations();
+                        // Show success message
+                        alert('Booking deleted successfully!');
+                    } else {
+                        throw new Error('Failed to delete booking');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Failed to delete booking. Please try again.');
+                }
+            }
+        }
+
+
+        async function searchReservation() {
+            const searchId = document.getElementById('searchInput').value.trim();
+            try {
+                if (searchId) {
+                    const response = await fetch(`/api/reservations/${searchId}`);
+                    const reservation = await response.json();
+                    displayReservations([reservation]);
+                } else {
+                    loadReservations();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function exportToExcel() {
+            try {
+                const response = await fetch('/api/export-reservations');
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'Reservations.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                document.body.removeChild(a);
+            } catch (error) {
+                console.error('Error exporting to Excel:', error);
+                alert('Failed to export data to Excel');
+            }
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').style.display = 'none';
+            document.getElementById('editForm').reset();
+        }
+
+        document.getElementById('roomBookingLink').addEventListener('click', function (e) {
+            e.preventDefault();
+            loadReservations();
+        });
+
+        // Initial load
+        loadReservations();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <script>
+        window.jspdf = window.jspdf || {};
+    </script>
+
+</body>
+
+</html>

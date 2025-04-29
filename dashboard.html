@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #1a237e 0%, #0d47a1 100%);
+            color: #ecf0f1;
+            padding: 25px;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            position: fixed;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 35px;
+            font-size: 26px;
+            text-align: center;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar nav {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar nav a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 12px 20px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .sidebar nav a i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        .sidebar nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .content {
+            margin-left: 280px;
+            padding: 35px;
+            flex-grow: 1;
+            background-color: #ffffff;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin: 25px 25px 25px 305px;
+        }
+
+        .content h1 {
+            color: #1a237e;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .summary-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .summary-box {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            width: 30%;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .summary-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .summary-box h2 {
+            color: #1a237e;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .summary-box p {
+            font-size: 30px;
+            color: #0d47a1;
+            font-weight: 600;
+        }
+
+        .graphs-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .chart-box {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            width: 48%;
+            transition: all 0.3s ease;
+            height: 400px;
+            position: relative;
+        }
+
+        .chart-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .chart-box h3 {
+            color: #1a237e;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        @media (max-width: 1200px) {
+            .graphs-container {
+                flex-direction: column;
+            }
+
+            .chart-box {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 15px;
+            }
+
+            .sidebar h2 {
+                display: none;
+            }
+
+            .sidebar nav a span {
+                display: none;
+            }
+
+            .content {
+                margin-left: 85px;
+            }
+
+            .summary-container {
+                flex-direction: column;
+            }
+
+            .summary-box {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-container">
+        <div class="sidebar">
+            <h2><i class="fas fa-hotel"></i> Hotel Admin</h2>
+            <nav>
+                <a href="./bookingpage.html"><i class="fas fa-calendar-check"></i> <span>Room Booking</span></a>
+
+                <a href="./rooms2.html"><i class="fas fa-bed"></i> <span>Rooms</span></a>
+                <a href="./staff.html"><i class="fas fa-users"></i> <span>Staff</span></a>
+            </nav>
+        </div>
+
+        <div class="content">
+            <h1><i class="fas fa-chart-line"></i> Dashboard Overview</h1>
+
+            <div class="summary-container">
+                <div class="summary-box">
+                    <h2>Total Booked Rooms</h2>
+                    <p id="totalBookedRooms">3/50</p>
+                </div>
+                <div class="summary-box">
+                    <h2>Total Staff</h2>
+                    <p id="totalStaff">8</p>
+                </div>
+                <div class="summary-box">
+                    <h2>Total Revenue</h2>
+                    <p id="profit">$7,500</p>
+                </div>
+            </div>
+
+            <div class="graphs-container">
+                <div class="chart-box">
+                    <h3>Room Status</h3>
+                    <canvas id="roomStatusChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <h3>Revenue Trends</h3>
+                    <canvas id="revenueTrendsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function updateDashboardStats() {
+            try {
+                const response = await fetch('/api/dashboard-stats');
+                const stats = await response.json();
+
+                // Update total booked rooms
+                const totalRooms = 80;
+                document.getElementById('totalBookedRooms').textContent =
+                    `${stats.totalBookedRooms}/${totalRooms}`;
+
+                // Update total revenue to match booking page format
+                document.getElementById('profit').textContent =
+                    `Rs. ${stats.totalRevenue.toFixed(2)}/-`;
+
+                // Update Room Status Chart
+                roomStatusChart.data.datasets[0].data = [
+                    stats.totalBookedRooms,
+                    totalRooms - stats.totalBookedRooms,
+                    0
+                ];
+                roomStatusChart.update();
+
+            } catch (error) {
+                console.error('Error fetching dashboard stats:', error);
+            }
+        }
+        // Call updateDashboardStats immediately and every 5 minutes
+        updateDashboardStats();
+        setInterval(updateDashboardStats, 300000);
+
+        // Room Status Chart
+        const roomStatusCtx = document.getElementById('roomStatusChart').getContext('2d');
+        new Chart(roomStatusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Booked Rooms', 'Non-Booked Rooms', 'Under Service Rooms'],
+                datasets: [{
+                    label: 'Room Status',
+                    data: [3, 5, 2],
+                    backgroundColor: ['#4CAF50', '#FFC107', '#F44336'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Revenue Trends Chart
+        const ctx2 = document.getElementById('revenueTrendsChart').getContext('2d');
+        const revenueTrendsChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [1500, 2000, 2500, 3000, 3500, 4000],
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
