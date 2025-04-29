@@ -2,7 +2,7 @@
 
 **Rest Easy** is a comprehensive hotel management system designed for hotels and hospitality businesses. It offers a full suite of front desk and back-office functionalities including room booking, staff management, admin dashboards, and a responsive user interface. Built with HTML, CSS, JavaScript, and MongoDB, this project provides both customer-facing and admin-facing features optimized for real-world hotel operations.
 
-🌐 Live Demo: [Rest Easy HMS](https://hms-by82.onrender.com/)
+🌐 Live Demo: [Rest Easy HMS]( https://hms-by82.onrender.com/ )
 
 ---
 
